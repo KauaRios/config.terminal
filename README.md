@@ -10,7 +10,7 @@ Compatível com Alacritty moderno (TOML); validado na versão 0.17.0.
 Requer `curl` e `bash`. Execute:
 
 ```sh
-curl -fsSL https://raw.githubusercontent.com/KauaRios/config.terminal/principal/instalar-remoto.sh | bash
+curl -fL https://raw.githubusercontent.com/KauaRios/config.terminal/principal/instalar-remoto.sh -o /tmp/config-terminal-install.sh && bash /tmp/config-terminal-install.sh && rm -f /tmp/config-terminal-install.sh
 ```
 
 Os arquivos são baixados em uma pasta temporária (`${TMPDIR:-/tmp}`), o
