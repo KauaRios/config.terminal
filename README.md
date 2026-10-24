@@ -7,7 +7,7 @@ Compatível com Alacritty moderno (TOML); validado na versão 0.17.0.
 
 ### Direto do GitHub
 
-Requer Git. Execute o bloco abaixo para clonar em uma pasta temporária, instalar
+Requer `curl`. Execute o bloco abaixo para baixar os arquivos em uma pasta temporária, instalar
 as configurações e apagar automaticamente a pasta de instalação ao terminar,
 inclusive se houver erro:
 
@@ -17,7 +17,10 @@ inclusive se houver erro:
     install_dir=$(mktemp -d "${TMPDIR:-/tmp}/config-terminal.XXXXXX")
     trap 'rm -rf -- "$install_dir"' EXIT
     trap 'exit 1' HUP INT TERM
-    git clone --depth 1 https://github.com/KauaRios/config.terminal.git "$install_dir"
+    for file in instalar.sh alacritty.toml starship.toml; do
+        curl -fsSL "https://raw.githubusercontent.com/KauaRios/config.terminal/principal/$file" \
+            -o "$install_dir/$file"
+    done
     sh "$install_dir/instalar.sh"
 )
 ```
