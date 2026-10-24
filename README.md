@@ -7,22 +7,20 @@ Compatível com Alacritty moderno (TOML); validado na versão 0.17.0.
 
 ### Direto do GitHub
 
-Requer `curl`. Execute o bloco abaixo para baixar os arquivos em uma pasta temporária, instalar
-as configurações e apagar automaticamente a pasta de instalação ao terminar,
-inclusive se houver erro:
+Requer `curl`, `tar` e `bash`. Copie e execute o comando abaixo. Ele baixa o
+repositório em uma pasta temporária, executa o instalador com `bash` e remove
+a pasta ao terminar, inclusive se houver erro:
 
 ```sh
-(
+bash -c '
     set -eu
     install_dir=$(mktemp -d "${TMPDIR:-/tmp}/config-terminal.XXXXXX")
-    trap 'rm -rf -- "$install_dir"' EXIT
-    trap 'exit 1' HUP INT TERM
-    for file in instalar.sh alacritty.toml starship.toml; do
-        curl -fsSL "https://raw.githubusercontent.com/KauaRios/config.terminal/principal/$file" \
-            -o "$install_dir/$file"
-    done
-    sh "$install_dir/instalar.sh"
-)
+    trap "rm -rf -- \"$install_dir\"" EXIT
+    trap "exit 1" HUP INT TERM
+    curl -fL https://github.com/KauaRios/config.terminal/archive/refs/heads/principal.tar.gz -o "$install_dir/repo.tar.gz"
+    tar -xzf "$install_dir/repo.tar.gz" -C "$install_dir"
+    bash "$install_dir/config.terminal-principal/instalar.sh"
+'
 ```
 
 ### Manual com sh
