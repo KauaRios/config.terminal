@@ -7,21 +7,14 @@ Compatível com Alacritty moderno (TOML); validado na versão 0.17.0.
 
 ### Direto do GitHub
 
-Requer `curl`, `tar` e `bash`. Copie e execute o comando abaixo. Ele baixa o
-repositório em uma pasta temporária, executa o instalador com `bash` e remove
-a pasta ao terminar, inclusive se houver erro:
+Requer `curl` e `bash`. Execute:
 
 ```sh
-bash -c '
-    set -eu
-    install_dir=$(mktemp -d "${TMPDIR:-/tmp}/config-terminal.XXXXXX")
-    trap "rm -rf -- \"$install_dir\"" EXIT
-    trap "exit 1" HUP INT TERM
-    curl -fL https://github.com/KauaRios/config.terminal/archive/refs/heads/principal.tar.gz -o "$install_dir/repo.tar.gz"
-    tar -xzf "$install_dir/repo.tar.gz" -C "$install_dir"
-    bash "$install_dir/config.terminal-principal/instalar.sh"
-'
+curl -fsSL https://raw.githubusercontent.com/KauaRios/config.terminal/principal/instalar-remoto.sh | bash
 ```
+
+Os arquivos são baixados em uma pasta temporária (`${TMPDIR:-/tmp}`), o
+`instalar.sh` é executado com `bash` e a pasta é apagada ao terminar.
 
 ### Manual com sh
 
